@@ -47,3 +47,25 @@ const getData = () => localStorage.getItem('data')
 ```
 
 `getData()` definition is easily distinguishable from the `@cached` which only suggests adding external functionality
+
+#### In Callabacks
+
+##### Usage
+
+```javascript
+scheduleForFrequentReexecution(@memoize function(value) { 
+  value++
+});
+```
+
+##### Decorator Defenition
+
+```javascript
+export function memoize(...) {
+  // at minimum, the arguments of this function should contain:
+  // - reference to the decorated function expression
+  // - arguments passed into the memoize function (if any)
+
+  // wrap the decorated function expression memoization implementation and return it
+}
+```
