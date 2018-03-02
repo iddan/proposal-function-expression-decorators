@@ -37,7 +37,9 @@ const MyComponent = pure(withState('data', 'setData', null)(function MyComponent
 
 3. In the second example which is the common case for inlining functions and higher order ones `MyComponent.name` is "MyComponent" and not "" - this is very important for debugging and making sense of code.
 
-Also Meta programming can be easily distinguished visually for example in:
+### Metaprogramming
+
+Metaprogramming can be easily distinguished visually for example in:
 
 ```javascript
 @cached
