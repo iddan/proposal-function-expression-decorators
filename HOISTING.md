@@ -8,7 +8,7 @@ Unlike decorating function expressions, decorating function declarations exposes
 
 The TDZ issue can be resolved using [Mirrors](https://gist.github.com/rbuckton/8e6806fb6852b50e4052/) and if this proves to be an acceptable solution this proposal can be expanded to include function declarations as well.
 
-#### Decorated function execution would not be hoist until first call. (by @hax)
+#### Decorated function execution would not be hoist until first call. ([by @hax](https://github.com/tc39/proposal-decorators/issues/40#issuecomment-369867557))
 
 ```javascript
 @deco
