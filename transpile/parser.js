@@ -1,6 +1,9 @@
+/**
+ * Modified https://github.com/angelozerr/acorn-es7/blob/master/acorn-es7.js to do the same thing
+ * but for function declarations instead of class declarations
+ */
+
 const acorn = require('acorn')
-const recast = require('recast')
-const { builders } = recast.types
 
 function getTokenType(p, loose) {
   return loose ? p.tok.type : p.type;
@@ -62,7 +65,7 @@ acorn.plugins.es7 = extendsAcorn(acorn.Parser.prototype);
 // acorn loose
 if(acorn.LooseParser) acorn.pluginsLoose.es7 = extendsAcorn(acorn.LooseParser.prototype);
 
-const parser = {
+module.exports = {
   parse(source) {
     return acorn.parse(source, {
       // Specify use of the plugin
@@ -72,68 +75,3 @@ const parser = {
     })
   }
 }
-
-function transpile(code) {
-  const ast = recast.parse(code, { parser })
-  recast.types.visit(ast, {
-    visitFunction(path) {
-      const { node } = path
-      if (node.decorators) {
-        const functionExpression = builders.functionExpression(
-          null, // Anonymize the function expression.
-          node.params,
-          node.body
-        )
-        const resolved = node.decorators.reduceRight((acc, decorator) => {
-          return builders.callExpression(decorator.expression, [acc])
-        }, functionExpression)
-        path.replace(builders.variableDeclaration('var', [
-          builders.variableDeclarator(
-            node.id,
-            resolved,
-          )
-        ]))
-      }
-      this.traverse(path)
-    }
-  })
-  return recast.print(ast).code
-}
-
-console.log(transpile(`
-function memoize(func) {
-  const results = new Map();
-  return (arg, ...rest) => {
-    if (results.has(arg)) {
-      return results.get(arg);
-    }
-    const value = func(arg, ...rest);
-    results.set(arg, value);
-    return value;
-  }
-}
-
-function partial(...preargs) {
-  return func => (...args) => func(...preargs, ...args);
-}
-
-const USERS = {
-  42: {
-    name: "Dan"
-  }
-}
-
-function init() {
-  search(42);
-
-  @memoize
-  @partial(USERS)
-  function search(users, id) {
-    return users[id];
-  }
-
-  return search;
-}
-
-init();
-`))
