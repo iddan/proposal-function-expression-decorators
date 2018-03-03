@@ -38,12 +38,12 @@ var extendsAcorn = function (pp) {
             if (!loose && getTokenType(this, loose) !== tt._function) {
               this.raise(this.start, "Leading decorators must be attached to a function declaration");
             }
-          case tt._class:
+          case tt._function:
             if (!loose && !declaration) this.unexpected()
             if (this.decorators.length) {
               var node = inner.call(this, declaration, topLevel);
               node.decorators = this.decorators;
-              // adjust start of ClassDeclaration with start of the first decorator (helpful for ES7 walk).
+              // adjust start of FunctionDeclaration with start of the first decorator (helpful for ES7 walk).
               node.start = node.decorators[0].start; 
               this.decorators = [];
               return node;
