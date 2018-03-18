@@ -1,6 +1,8 @@
 # Decorators for JavaScript Function Expressions
 
-Igor Minar
+Based on the proposal by Igor Minar
+
+[Proposal document](https://docs.google.com/document/d/1ikxIP5-RVYq6d_f8lAvf3pKC00W78ueyp-xIZ6q67uU)
 
 This proposal builds on top of the "[Class and property decorators]" proposal currently at [Stage 1] and adds decorator support for function expressions.
 
