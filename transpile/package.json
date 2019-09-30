@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "debug": "yarn jscodeshift test.js --dry --print"
+  },
+  "dependencies": {
+    "acorn": "^5.5.0",
+    "jscodeshift": "^0.4.1",
+    "recast": "^0.14.4"
+  }
+}
